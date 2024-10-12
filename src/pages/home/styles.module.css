@@ -1,0 +1,104 @@
+.long_logo {
+  width: 200px;
+}
+
+.container {
+  position: relative;
+}
+
+.header_container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-direction: column;
+  margin-bottom: 40px;
+}
+
+.button_container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.logo_text {
+  font-family: var(--logotype-font) !important;
+  font-size: 40px !important;
+}
+
+.logo_container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+}
+
+/* Base style for the frog icon */
+/* Base style for the frog icon */
+/* Base style for the frog icon */
+.frog {
+  width: 60px;
+  height: 60px;
+  /* Ensure the frog starts facing right */
+  transform: scaleX(1) scaleY(1) translateY(0);
+}
+
+/* Animation for hopping left */
+.frogLeft {
+  animation: hopLeft 0.3s forwards;
+}
+
+/* Animation for hopping right */
+.frogRight {
+  animation: hopRight 0.3s forwards;
+}
+
+/* Keyframes for hopping left */
+@keyframes hopLeft {
+  0% {
+    transform: scaleX(1) scaleY(1) translateY(0);
+  }
+  20% {
+    transform: scaleX(1) scaleY(0.9) translateY(0); /* Squish effect */
+  }
+  40% {
+    transform: scaleX(1) scaleY(1) translateY(-10px); /* Jump up */
+  }
+  50% {
+    transform: scaleX(1) scaleY(1) translateY(-10px); /* Mid-air */
+  }
+  51% {
+    transform: scaleX(-1) scaleY(1) translateY(-10px); /* Instant flip */
+  }
+  70% {
+    transform: scaleX(-1) scaleY(0.9) translateY(0); /* Land and squish */
+  }
+  100% {
+    transform: scaleX(-1) scaleY(1) translateY(0); /* End facing left */
+  }
+}
+
+/* Keyframes for hopping right */
+@keyframes hopRight {
+  0% {
+    transform: scaleX(-1) scaleY(1) translateY(0);
+  }
+  20% {
+    transform: scaleX(-1) scaleY(0.9) translateY(0); /* Squish effect */
+  }
+  40% {
+    transform: scaleX(-1) scaleY(1) translateY(-10px); /* Jump up */
+  }
+  50% {
+    transform: scaleX(-1) scaleY(1) translateY(-10px); /* Mid-air */
+  }
+  51% {
+    transform: scaleX(1) scaleY(1) translateY(-10px); /* Instant flip */
+  }
+  70% {
+    transform: scaleX(1) scaleY(0.9) translateY(0); /* Land and squish */
+  }
+  100% {
+    transform: scaleX(1) scaleY(1) translateY(0); /* End facing right */
+  }
+}

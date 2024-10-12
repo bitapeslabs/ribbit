@@ -1,0 +1,80 @@
+.container {
+  transition: 0.1s;
+
+  font-family: var(--default-font);
+  font-weight: 600;
+  width: 100%;
+  padding: var(--padding-small);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  border-radius: var(--round-full);
+  user-select: none;
+}
+
+.container:hover {
+  transition: 0.1s;
+}
+
+.container:active {
+  transition: 0.1s;
+}
+
+.primary {
+  background-color: var(--primary);
+  color: var(--primary-text-color);
+
+  &:hover {
+    background-color: var(--primaryHover);
+  }
+  &:active {
+    background-color: var(--primaryActive);
+  }
+  &.disabled {
+    color: var(--disabled-text-color);
+    background-color: var(--primary);
+  }
+}
+
+.secondary {
+  background-color: var(--secondary);
+  color: var(--secondary-text-color);
+
+  &:hover {
+    background-color: var(--secondaryHover);
+  }
+  &:active {
+    background-color: var(--secondaryActive);
+  }
+  &.disabled {
+    color: var(--disabled-text-color);
+    background-color: var(--secondary);
+  }
+}
+
+.outline {
+  background-color: var(--outline);
+  border: var(--divider-width) solid var(--divider-color);
+  color: var(--outline-text-color);
+
+  &:hover {
+    background-color: var(--outlineHover);
+  }
+  &:active {
+    background-color: var(--outlineActive);
+  }
+  &.disabled {
+    color: var(--disabled-text-color-light);
+    background-color: var(--outline);
+  }
+}
+
+.disabled {
+  transform: translateY(0px) !important;
+
+  filter: brightness(0.5);
+  cursor: not-allowed;
+}
