@@ -1,9 +1,9 @@
-import { Box, Text, Button } from "@/components/karrot";
+import { Box, Text, Button } from "@/ui/components/base";
 import styles from "./styles.module.css";
-import PageContainer from "@/components/shared/PageContainer";
-import { FrogIcon } from "@/components/shared/Icons";
-import { Colors } from "@/components/karrot/DesignToken/colors";
-import useMouseAndScreen from "@/hooks/useMouseAndScreen";
+import PageContainer from "@/ui/components/shared/PageContainer";
+import { FrogIcon } from "@/ui/components/shared/Icons";
+import { Colors } from "@/ui/components/base/DesignToken/colors";
+import useMouseAndScreen from "@/ui/hooks/useMouseAndScreen";
 import clsx from "clsx";
 export const Home: React.FC<{}> = () => {
   const { mousePosition, screenDimensions } = useMouseAndScreen();

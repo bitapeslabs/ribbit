@@ -10,5 +10,6 @@
     "default_popup": "index.html"
   },
   "host_permissions": ["https://*/*", "http://*/*"],
-  "permissions": ["storage", "scripting", "tabs"]
+  "permissions": ["storage", "unlimitedStorage", "activeTab"],
+  "background": { "service_worker": "background.js" }
 }

@@ -1,13 +1,13 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App.tsx";
 import "./assets/fonts/poppins.css";
 import "./assets/fonts/ubuntu.css";
+import { Router } from "@/ui/pages";
 
 import "./index.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <App />
+    <Router />
   </StrictMode>
 );

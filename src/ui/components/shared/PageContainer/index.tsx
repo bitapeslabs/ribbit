@@ -1,7 +1,10 @@
 import React from "react";
-import Box from "@/components/karrot/Box";
+import Box from "@/ui/components/base/Box";
 
 import styles from "./style.module.css";
+import { useRef, useEffect } from "react";
+import { extensionIsInTab } from "@/ui/hooks/browser";
+// import { setInterval } from "timers/promises";
 
 export type PageContainerProps = {
   children: React.ReactNode;
@@ -15,8 +18,21 @@ const PageContainer: React.FC<PageContainerProps> = ({
   hasPadding,
   children,
 }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const checkRef = async () => {
+      const inTab = await extensionIsInTab();
+      if (!inTab) {
+        containerRef.current?.classList.add(styles.extension);
+      }
+    };
+
+    checkRef();
+  }, []);
+
   return (
-    <Box className={styles.container}>
+    <Box className={styles.container} ref={containerRef}>
       {hasGradient && <Box className={styles.gradient} />}
       <Box className={styles.bg_container} />
       <Box

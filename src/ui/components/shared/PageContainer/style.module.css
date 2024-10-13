@@ -6,17 +6,22 @@
   height: 100%;
 }
 
+.extension {
+  width: 357px;
+  height: 600px;
+}
+
 .bg_container {
   position: fixed;
-  width: 200%;
-  height: 300%;
+  width: 1000%;
+  height: 1000%;
   overflow: hidden;
   z-index: -200;
   background-image: url("/images/frogpattern.svg");
 
-  background-size: 800px;
+  background-size: 1600px;
   background-repeat: repeat;
-  opacity: 0.1;
+  opacity: 0.05;
   animation: infiniteBg 20s linear infinite;
 }
 
@@ -41,6 +46,6 @@
     transform: translateY(0px) translateX(0px);
   }
   100% {
-    transform: translateY(-800px) translateX(100px);
+    transform: translateY(-1600px) translateX(1600px);
   }
 }
