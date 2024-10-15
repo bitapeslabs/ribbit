@@ -1,9 +1,10 @@
 import React from "react";
 import Box from "@/ui/components/base/Box";
 
-import styles from "./style.module.css";
+import styles from "./styles.module.css";
 import { useRef, useEffect } from "react";
 import { extensionIsInTab } from "@/ui/hooks/browser";
+import { isInDevEnvironment } from "@/background/webapi/browser";
 // import { setInterval } from "timers/promises";
 
 export type PageContainerProps = {
@@ -16,14 +17,16 @@ export type PageContainerProps = {
 const PageContainer: React.FC<PageContainerProps> = ({
   hasGradient,
   hasPadding,
+  hasBackground,
   children,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const isDev = isInDevEnvironment();
 
   useEffect(() => {
     const checkRef = async () => {
       const inTab = await extensionIsInTab();
-      if (!inTab) {
+      if (!inTab && !isDev) {
         containerRef.current?.classList.add(styles.extension);
       }
     };
@@ -34,7 +37,7 @@ const PageContainer: React.FC<PageContainerProps> = ({
   return (
     <Box className={styles.container} ref={containerRef}>
       {hasGradient && <Box className={styles.gradient} />}
-      <Box className={styles.bg_container} />
+      {hasBackground && <Box className={styles.bg_container} />}
       <Box
         className={styles.inner_page_container}
         style={{ padding: hasPadding ? "var(--default-padding)" : "0px" }}

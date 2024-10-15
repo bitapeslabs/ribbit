@@ -29,7 +29,7 @@
 .logo_container {
   display: flex;
   flex-direction: row;
-  gap: 20px;
+  gap: 15px;
   align-items: center;
 }
 
@@ -37,8 +37,10 @@
 /* Base style for the frog icon */
 /* Base style for the frog icon */
 .frog {
-  width: 60px;
-  height: 60px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  width: 80px;
+  height: 80px;
   /* Ensure the frog starts facing right */
   transform: scaleX(1) scaleY(1) translateY(0);
 }
@@ -46,6 +48,10 @@
 /* Animation for hopping left */
 .frogLeft {
   animation: hopLeft 0.3s forwards;
+}
+
+.header_text {
+  text-align: center;
 }
 
 /* Animation for hopping right */

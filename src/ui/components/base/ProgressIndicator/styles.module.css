@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  gap: 10px;
+  flex-direction: row;
+}
+
+.circle_container {
+  width: calc(var(--default-padding) / 2);
+  height: calc(var(--default-padding) / 2);
+  border-radius: 50%;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--divider-color);
+}
+
+.active {
+  border-width: 0px;
+  background-color: #fff;
+}

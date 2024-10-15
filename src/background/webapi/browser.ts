@@ -25,6 +25,13 @@ export async function browserWindowsGetCurrent(params?: any) {
   }
 }
 
+export function isInDevEnvironment(): boolean {
+  return (
+    window.location.protocol === "http:" ||
+    window.location.protocol === "https:"
+  );
+}
+
 export async function browserWindowsCreate(params?: any) {
   //@ts-ignore
   if (MANIFEST_VERSION === "mv2") {
@@ -103,7 +110,13 @@ export async function browserTabsGetCurrent() {
       });
     });
   } else {
-    return await browser.tabs.getCurrent();
+    try {
+      return await browser.tabs.getCurrent();
+    } catch (e) {
+      //Probably running in a dev environment with vite
+      
+      return null;
+    }
   }
 }
 

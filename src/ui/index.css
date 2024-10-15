@@ -1,9 +1,12 @@
 :root {
   position: relative;
 
+  --background-main: #0b0f12ff;
+
   --default-font: "Poppins", sans-serif;
-  --logotype-font: "Ubuntu", sans-serif;
-  --divider-color: #3d3d3d;
+  --logotype-font: "Poppins", sans-serif;
+  --grafitti-font: "SedgwickAve";
+  --divider-color: #333c43;
   --divider-color-dark: #f9f9f9;
   --divider-width: 1px;
   --default-margin: 20px;
@@ -21,8 +24,8 @@
   --secondaryHover: #cacaca;
   --secondaryActive: #eee;
   --outline: transparent;
-  --outlineHover: #ffffff11;
-  --outlineActive: #ffffff22;
+  --outlineHover: #ffffff05;
+  --outlineActive: #ffffff07;
   --primary-text-color: #000;
   --secondary-text-color: #000;
   --outline-text-color: #ffffff;
@@ -38,7 +41,8 @@
 body {
   color: #fff;
   font-family: "Poppins";
-  background-color: #000;
+  font-weight: 300;
+  background-color: var(--background-main);
   margin: 0;
   position: relative;
   height: 100vh;

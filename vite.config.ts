@@ -3,17 +3,17 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import react from "@vitejs/plugin-react";
 import { resolve } from "path";
 
-// Vite Configuration
 export default defineConfig({
   plugins: [react(), tsconfigPaths()],
   build: {
     rollupOptions: {
       input: {
+        // Correct path to index.html without using import.meta.url
+        main: resolve(__dirname, "index.html"), // This resolves index.html in the project root
         // Background script
-        background: resolve(import.meta.dirname, "src/background/index.ts"),
-
+        background: resolve(__dirname, "src/background/index.ts"),
         // UI (Main entry for the UI)
-        ui: resolve(import.meta.dirname, "src/ui/index.tsx"),
+        ui: resolve(__dirname, "src/ui/index.tsx"),
       },
       output: {
         // Output JavaScript files
@@ -29,11 +29,9 @@ export default defineConfig({
         // Ensure CSS output is named 'ui.css' without hash
         assetFileNames: (assetInfo) => {
           if (assetInfo.name && assetInfo.name.endsWith(".css")) {
-            // Output all CSS files as 'ui.css'
-            return "ui.css";
+            return "ui.css"; // Output all CSS files as 'ui.css'
           }
-          // Default behavior for other assets (like images, fonts)
-          return "assets/[name].[hash].[ext]";
+          return "assets/[name].[hash].[ext]"; // Default behavior for other assets
         },
       },
     },

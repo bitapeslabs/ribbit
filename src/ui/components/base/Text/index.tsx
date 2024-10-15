@@ -15,7 +15,7 @@ export const Text = forwardRef<HTMLDivElement, TextProps>(
         ref={ref}
         style={{ fontSize: TextSizes[size || "sm"] }}
         {...props}
-        className={clsx(props.className, styles.container)}
+        className={clsx(styles.container, props.className)}
       >
         {children}
       </div>

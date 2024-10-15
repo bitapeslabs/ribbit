@@ -1,10 +1,12 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "./assets/fonts/poppins.css";
-import "./assets/fonts/ubuntu.css";
+import "@/ui/assets/fonts/poppins.css";
+import "@/ui/assets/fonts/ubuntu.css";
+import "@/ui/assets/fonts/sedgwick.css";
+
 import { Router } from "@/ui/pages";
 
-import "./index.css";
+import "@/ui/index.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
