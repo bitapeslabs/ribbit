@@ -1,4 +1,4 @@
-import { Box, Text, NavButton } from "@/ui/components/base";
+import { Box, Text, TextInput, Button } from "@/ui/components/base";
 import PageContainer from "@/ui/components/shared/PageContainer";
 
 import BlurAttach from "@/ui/components/shared/BlurAttach";
@@ -15,6 +15,20 @@ export const CreateWallet: React.FC<{}> = () => {
       <Box>
         <Box ref={blurRef}>
           <Text size="xl"> hey</Text>
+        </Box>
+
+        <Box
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "20px",
+          }}
+        >
+          <TextInput label="password" type="password" />
+          <TextInput label="repeat password" type="password" />
+          <Button variant="primary" isDisabled>
+            Create Wallet
+          </Button>
         </Box>
       </Box>
     </PageContainer>

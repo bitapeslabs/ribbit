@@ -1,0 +1,28 @@
+.outer_container {
+  width: 100%;
+  position: relative;
+  display: flex;
+  gap: calc(var(--default-margin) / 2);
+  flex-direction: column;
+}
+
+.container {
+  transition: 0.3s ease-in-out;
+
+  width: calc(100% - 2 * var(--padding-small));
+  outline: none;
+  border-color: var(--divider-color);
+  border-width: 1px;
+  border-style: solid;
+  border-radius: var(--round-box);
+  background-color: transparent;
+  font-family: var(--default-font);
+  font-weight: 500;
+  color: var(--outline-text-color);
+  padding: var(--padding-small);
+
+  &:focus {
+    transition: 0.3s ease-in-out;
+    border-color: var(--primary);
+  }
+}

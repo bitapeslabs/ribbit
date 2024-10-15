@@ -1,9 +1,7 @@
 import { forwardRef } from "react";
-import { Button as ReactAriaButton } from "react-aria-components";
-import clsx from "clsx";
-import { useButtonStyles, ButtonProps } from "../shared";
+import { ButtonProps } from "../shared";
 import { useNavigate } from "react-router-dom";
-
+import Button from "../Button";
 //Any extra implementations not in ReactAriaButton
 
 export type NavButtonProps = Omit<ButtonProps, "onPress"> & {
@@ -16,9 +14,10 @@ export const NavButton = forwardRef<HTMLButtonElement, NavButtonProps>(
     const navigate = useNavigate();
 
     return (
-      <ReactAriaButton
+      <Button
         {...props}
-        className={clsx(useButtonStyles(props), props.className)}
+        //This is clsxed in the Button Component
+        className={props.className}
         ref={ref}
         onPress={() => {
           navigate(to, { state: state });

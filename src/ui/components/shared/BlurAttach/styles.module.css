@@ -1,6 +1,8 @@
 .container {
   top: 0;
   left: 0;
+  z-index: -100;
+  pointer-events: none;
   position: fixed;
   width: 657px;
   height: 250px; /* Squished height */
