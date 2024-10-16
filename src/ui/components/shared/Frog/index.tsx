@@ -1,5 +1,4 @@
 import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { Group } from "three";
 import { Suspense, useRef, useMemo } from "react";
@@ -70,7 +69,6 @@ function Scene({ frogDistance = 3 }) {
       <Suspense fallback={<LoadingIndicator />}>
         <MeshComponent />
       </Suspense>
-      <OrbitControls />
     </Canvas>
   );
 }
