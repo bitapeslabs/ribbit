@@ -5,18 +5,13 @@ import Frog from "@/ui/components/shared/Frog";
 
 import BlurAttach from "@/ui/components/shared/BlurAttach";
 import { useRef } from "react";
-import GrafitiBackground from "@/ui/components/shared/GraffitiBackground";
+//import { extensionIsInTab } from "@/ui/hooks/browser";
 
 export const Home: React.FC<{}> = () => {
   const logoContainerRef = useRef<HTMLDivElement>(null);
 
   return (
-    <PageContainer hasGradient hasPadding hasBackground>
-      <GrafitiBackground seed={37}>
-        <Text size="gorlock">Satoshi was here</Text>
-        <Text size="gorlock">opcatopcatopcat</Text>
-        <Text size="gorlock">ribbit ribbit</Text>
-      </GrafitiBackground>
+    <PageContainer hasGradient hasPadding>
       <BlurAttach targetRef={logoContainerRef} />
       <Box className={styles.container}>
         <Box className={styles.header_container}>

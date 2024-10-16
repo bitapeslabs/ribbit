@@ -9,5 +9,5 @@
   background: radial-gradient(circle, #7bff5c 0%, #7bff5c00 100%);
   filter: blur(60px); /* Adjust the blur as needed */
   border-radius: 50%; /* To make it circular */
-  opacity: 0.2;
+  opacity: 0.15;
 }

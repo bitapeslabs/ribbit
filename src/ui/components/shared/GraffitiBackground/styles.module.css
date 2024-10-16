@@ -6,7 +6,7 @@
   height: 100%;
   overflow: hidden;
   z-index: -1000;
-  color: var(--divider-color);
+  color: var(--divider-color) !important;
   font-family: var(--grafitti-font) !important;
   font-weight: 500 !important;
   opacity: 0.1;

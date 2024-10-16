@@ -1,0 +1,17 @@
+.page_container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--margin-small);
+}
+
+.wizard_header_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: calc(var(--margin-small) / 2);
+  margin-bottom: 30px;
+}

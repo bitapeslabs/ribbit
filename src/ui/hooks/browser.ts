@@ -5,6 +5,7 @@ import browser, {
   browserTabsGetCurrent,
   browserTabsQuery,
   browserTabsUpdate,
+  isInDevEnvironment,
 } from "@/background/webapi/browser";
 
 export const openExtensionInTab = async () => {
@@ -34,6 +35,11 @@ export const useExtensionIsInTab = () => {
     init();
   }, []);
   return isInTab;
+};
+
+export const useIsExtendedScreen = () => {
+  let isDev = useExtensionIsInTab();
+  return isDev || isInDevEnvironment();
 };
 
 export const useOpenExtensionInTab = () => {

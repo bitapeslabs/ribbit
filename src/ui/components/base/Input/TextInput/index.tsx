@@ -22,7 +22,7 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
         {...TextFieldProps}
         className={clsx(styles.outer_container, TextFieldProps?.className)}
       >
-        {label && <Label>{label}</Label>}
+        <Label style={{ display: label ? "block" : "none" }}>{label}</Label>
         <Input
           {...(props as InputProps)}
           ref={ref}

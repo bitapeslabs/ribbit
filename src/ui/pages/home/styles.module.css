@@ -27,6 +27,7 @@
 }
 
 .logo_container {
+  margin-top: var(--margin-large);
   display: flex;
   flex-direction: row;
   gap: 15px;

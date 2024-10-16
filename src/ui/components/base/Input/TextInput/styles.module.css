@@ -23,6 +23,6 @@
 
   &:focus {
     transition: 0.3s ease-in-out;
-    border-color: var(--primary);
+    border-color: var(--divider-color-input-hover);
   }
 }
