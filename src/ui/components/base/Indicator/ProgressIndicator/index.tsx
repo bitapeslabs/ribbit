@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { Box, BoxProps } from "../Box";
+import { Box, BoxProps } from "../../Box";
 import clsx from "clsx";
 import styles from "./styles.module.css";
 

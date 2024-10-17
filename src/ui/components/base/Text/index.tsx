@@ -5,7 +5,7 @@ import styles from "./style.module.css";
 import { Colors } from "../DesignToken/colors";
 
 export type TextProps = {
-  children: string;
+  children: React.ReactNode;
   color?: keyof typeof Colors;
   size?: TextSizesProps;
 } & React.HTMLAttributes<HTMLDivElement>;

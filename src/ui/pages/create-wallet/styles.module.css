@@ -13,5 +13,5 @@
   align-items: center;
   flex-direction: column;
   gap: calc(var(--margin-small) / 2);
-  margin-bottom: 30px;
+  margin-bottom: var(--margin-large);
 }

@@ -1,0 +1,30 @@
+.container {
+  pointer-events: none;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  flex-direction: column;
+}
+
+.toast_visible {
+  transition: 0.3s ease-in-out;
+  opacity: 1 !important;
+}
+
+.toast_container {
+  transition: 0.3s ease-in-out;
+
+  font-family: "Poppins", sans-serif;
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  margin: 10px 0;
+  border-radius: var(--round-full);
+  opacity: 0;
+}

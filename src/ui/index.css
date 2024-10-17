@@ -35,6 +35,14 @@
   --disabled-background-color: #191e22;
   --disabled-text-color-light: #aaa;
   --disabled-text-color: #444;
+
+  /* Indicator colors */
+  --error: #ff2a2a;
+  --warning: #ffdd55;
+  --success: var(--primary);
+
+  /* Text sizes */
+  --text-size-small: 14px;
 }
 
 #root {

@@ -1,16 +1,19 @@
 import React, { useState, ReactNode } from "react";
 import { Box } from "@/ui/components/base";
 import styles from "./styles.module.css";
-import { ProgressIndicator } from "@/ui/components/base/ProgressIndicator";
+import { ProgressIndicator } from "@/ui/components/base";
 import clsx from "clsx";
+
+export type WizardNavigatorControlsProps = {
+  nextStep: () => void;
+  previousStep: () => void;
+  currentStep: number;
+  setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
+};
+
 interface WizardNavigatorProps {
   children: ReactNode;
-  WizardNavigatorControls: {
-    nextStep: () => void;
-    previousStep: () => void;
-    currentStep: number;
-    setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
-  };
+  WizardNavigatorControls: WizardNavigatorControlsProps;
 }
 
 const WizardNavigator: React.FC<WizardNavigatorProps> = ({
@@ -45,7 +48,7 @@ const WizardNavigator: React.FC<WizardNavigatorProps> = ({
   );
 };
 
-export const useWizardNavigatorControls = () => {
+export const useWizardNavigatorControls = (): WizardNavigatorControlsProps => {
   const [currentStep, setCurrentStep] = useState(0);
 
   const nextStep = () => {

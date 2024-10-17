@@ -2,8 +2,34 @@
   width: 100%;
   position: relative;
   display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: calc(var(--margin-small) / 2);
+  flex-direction: column;
+}
+
+.text_field_container {
+  width: 100%;
+  position: relative;
+  display: flex;
   gap: calc(var(--default-margin) / 2);
   flex-direction: column;
+}
+
+.indicator_container {
+  position: absolute;
+  right: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  pointer-events: none;
+  margin-right: var(--margin-small);
+}
+
+.error {
+  border-color: var(--error) !important;
 }
 
 .container {
@@ -18,6 +44,7 @@
   background-color: transparent;
   font-family: var(--default-font);
   font-weight: 500;
+  font-size: var(--text-size-small);
   color: var(--outline-text-color);
   padding: var(--padding-small);
 

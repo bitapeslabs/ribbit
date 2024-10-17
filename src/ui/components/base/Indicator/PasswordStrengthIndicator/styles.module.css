@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.circle_container {
+  border-radius: 50%;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--divider-color);
+}
+
+.circle_green {
+  background-color: var(--success);
+  border-color: var(--success);
+}
+
+.circle_yellow {
+  background-color: var(--warning);
+  border-color: var(--warning);
+}
+
+.circle_red {
+  background-color: var(--error);
+  border-color: var(--error);
+}
