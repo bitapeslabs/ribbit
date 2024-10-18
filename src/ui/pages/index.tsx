@@ -17,7 +17,6 @@ const PageRoutes: Array<{ path: string; component: React.FC<{}> }> = [
 
 export const Router = () => {
   const isDev = isInDevEnvironment();
-  console.log(isDev);
   const PolymorphicRouter = isDev ? BrowserRouter : HashRouter;
 
   return (

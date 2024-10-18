@@ -10,9 +10,9 @@ import { Router } from "@/ui/pages";
 import "@/ui/index.css";
 
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <Providers>
+  <Providers>
+    <StrictMode>
       <Router />
-    </Providers>
-  </StrictMode>
+    </StrictMode>
+  </Providers>
 );
