@@ -25,7 +25,7 @@ export type ErrorControlsProps = {
 
 //invalid prop is omitted because we are using errorControls to handle errors
 export type TextInputProps = Omit<InputProps, "invalid"> & {
-  label?: string;
+  label?: React.ReactNode;
   errorControls?: ErrorControlsProps;
   textFieldProps?: TextFieldProps;
   indicator?: TextInputIndicator;
@@ -34,6 +34,20 @@ export type TextInputProps = Omit<InputProps, "invalid"> & {
 export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
   ({ label, textFieldProps, errorControls, indicator, ...props }, ref) => {
     const indicatorRef = useRef<HTMLDivElement>(null);
+
+    const indicatorPadding =
+      (indicatorRef.current?.getBoundingClientRect().width || 0) +
+      Paddings.small * 2;
+
+    const inputStyles = {
+      ...props?.style,
+
+      //Indicator takes space inside the component, we want to allocate some space for it and adjust the width of the input accordingly
+      ...(indicator && {
+        width: `calc(100% - ${indicatorPadding}px - var(--padding-small))`,
+        paddingRight: `${indicatorPadding}px`,
+      }),
+    };
 
     return (
       <Box className={styles.outer_container}>
@@ -44,8 +58,11 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
             textFieldProps?.className
           )}
         >
-          <Label style={{ display: label ? "block" : "none" }}>
-            {label && <Text size="sm">{label}</Text>}
+          <Label
+            style={{ display: label ? "flex" : "none" }}
+            className={styles.input_label}
+          >
+            {label || ""}
           </Label>
           <Input
             {...(props as InputProps)}
@@ -55,17 +72,7 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
               errorControls?.error && styles.error,
               props.className
             )}
-            style={{
-              ...props?.style,
-              ...(indicatorRef.current && {
-                width: `calc(100% - ${
-                  indicatorRef.current?.clientWidth + Paddings.small * 2
-                }px - var(--padding-small))`,
-                paddingRight: `${
-                  indicatorRef.current?.clientWidth + Paddings.small * 2
-                }px`,
-              }),
-            }}
+            style={inputStyles}
             {...(errorControls?.error && {
               onInput: () => errorControls.setError(""),
             })}
@@ -78,11 +85,12 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
           )}
         </TextField>
         {errorControls?.error && (
-          <Text color="errorLight" size="sm">
+          <Box className={styles.error_text_container}>
             <IconAlertTriangleFilled color={Colors.error} size="18px" />
-            &nbsp;&nbsp;
-            {errorControls.error}
-          </Text>
+            <Text color="errorLight" size="sm">
+              {errorControls.error}
+            </Text>
+          </Box>
         )}
       </Box>
     );

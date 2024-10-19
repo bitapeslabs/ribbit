@@ -4,3 +4,4 @@ export * from "./Text";
 export * from "./Indicator";
 export * from "./DesignToken";
 export * from "./Input";
+export * from "./Checkbox";

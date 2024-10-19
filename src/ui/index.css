@@ -43,6 +43,7 @@
 
   /* Text sizes */
   --text-size-small: 14px;
+  --text-size-extra-small: 14px;
 }
 
 #root {

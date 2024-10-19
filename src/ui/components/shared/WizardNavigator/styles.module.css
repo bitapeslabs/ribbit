@@ -5,10 +5,11 @@
   align-items: center;
   flex-direction: column;
   display: flex;
+  position: relative;
 }
 
 .wizard_header {
-  height: 100px;
+  height: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -20,12 +21,14 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: calc(100% - 100px);
+  height: calc(100% - 60px);
+  width: 100%;
+  position: relative;
 }
 
 .pageContainer {
   position: relative;
-  height: calc(100% - 100px);
+  height: calc(100% - 60px);
   display: flex;
   justify-content: center;
   align-items: center;

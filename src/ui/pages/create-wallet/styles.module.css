@@ -5,6 +5,16 @@
   align-items: center;
   text-align: center;
   gap: var(--margin-small);
+  position: relative;
+  width: 100%;
+}
+
+.password_visibility_toggle {
+  pointer-events: all !important;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .wizard_header_container {
@@ -13,5 +23,18 @@
   align-items: center;
   flex-direction: column;
   gap: calc(var(--margin-small) / 2);
-  margin-bottom: var(--margin-large);
+  margin-bottom: var(--margin-small);
+  text-align: center;
+}
+.checkbox_container {
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+.indicator_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: calc(var(--margin-small) / 2);
 }

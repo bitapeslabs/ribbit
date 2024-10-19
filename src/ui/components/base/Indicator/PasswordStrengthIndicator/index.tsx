@@ -44,7 +44,6 @@ export const PasswordStrengthIndicator = forwardRef<
     height: IndicatorSizes[size],
   };
   const passwordStrength = getPasswordStrength(password);
-  console.log(passwordStrength);
   return (
     <Box
       ref={ref}

@@ -40,7 +40,11 @@ const PageContainer: React.FC<PageContainerProps> = ({
       {hasBackground && <Box className={styles.bg_container} />}
       <Box
         className={styles.inner_page_container}
-        style={{ padding: hasPadding ? "var(--default-padding)" : "0px" }}
+        style={{
+          padding: hasPadding ? "var(--default-padding)" : "0px",
+          paddingTop: "0px",
+          paddingBottom: "0px",
+        }}
       >
         {children}
       </Box>

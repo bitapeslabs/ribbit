@@ -48,8 +48,10 @@ const WizardNavigator: React.FC<WizardNavigatorProps> = ({
   );
 };
 
-export const useWizardNavigatorControls = (): WizardNavigatorControlsProps => {
-  const [currentStep, setCurrentStep] = useState(0);
+export const useWizardNavigatorControls = (
+  defaultPage?: number
+): WizardNavigatorControlsProps => {
+  const [currentStep, setCurrentStep] = useState(defaultPage || 0);
 
   const nextStep = () => {
     setCurrentStep((prevStep) => {

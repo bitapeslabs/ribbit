@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+}
+.grid_container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 equal-width columns */
+  grid-template-rows: repeat(6, auto); /* 6 rows */
+  gap: 8px; /* Optional: space between grid items */
+  width: 100%;
+}
+
+.seedphrase_word {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--default-font);
+  font-weight: 400;
+  font-size: var(--text-size-extra-small);
+  color: var(--outline-text-color);
+  padding: 8px;
+
+  border-radius: var(--round-box);
+  border: 1px solid var(--divider-color);
+  background-color: transparent;
+}
+
+.seedphrase_word_number {
+  color: var(--primary);
+}
