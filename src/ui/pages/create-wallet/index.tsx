@@ -1,7 +1,7 @@
 import { Box, Text, TextInput, Button, Checkbox } from "@/ui/components/base";
 import PageContainer from "@/ui/components/shared/PageContainer";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import WizardNavigator, {
   useWizardNavigatorControls,
   WizardNavigatorControlsProps,
@@ -13,6 +13,10 @@ import { PasswordStrengthIndicator } from "@/ui/components/base";
 import { PasswordFormValidator } from "@/ui/validators";
 import { FormEvent, useMemo } from "react";
 import { SeedphraseGrid } from "@/ui/components/shared/SeedphraseGrid";
+
+const generateMnemonic = async () => {
+  return "arm elbow elephant hat apple banana cat dog elephant fish goat hat";
+};
 
 type WizardPageProps = {
   WizardNavigatorControls: WizardNavigatorControlsProps;
@@ -155,7 +159,16 @@ const ViewSeedphrasePage: React.FC<WizardPageProps> = ({
 
   const blurRef = useRef<HTMLDivElement>(null);
 
-  const seedphrase = ["to", "be", "added", "later"];
+  let [seedphrase, setSeedphrase] = useState<string[]>([]);
+
+  useEffect(() => {
+    const GenerateMnemonic = async () => {
+      const mnemonic = await generateMnemonic();
+      setSeedphrase(mnemonic.split(" "));
+    };
+
+    GenerateMnemonic();
+  }, []);
 
   return (
     <Box className={styles.page_container}>
