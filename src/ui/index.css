@@ -40,6 +40,7 @@
   --error: #ff2a2a;
   --warning: #ffdd55;
   --success: var(--primary);
+  --info: #81d0d7;
 
   /* Text sizes */
   --text-size-small: 14px;

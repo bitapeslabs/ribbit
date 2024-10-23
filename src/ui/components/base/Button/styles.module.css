@@ -99,3 +99,8 @@
 .disabled .container {
   color: var(--disabled-text-color) !important;
 }
+
+.fit_content {
+  width: fit-content !important;
+  flex-grow: 0;
+}

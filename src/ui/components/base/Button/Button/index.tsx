@@ -23,6 +23,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     return (
       <Box
+        {...props.containerProps}
         className={clsx(useButtonStyles(props), props.className)}
         ref={outerContainerRef}
       >

@@ -114,7 +114,7 @@ export async function browserTabsGetCurrent() {
       return await browser.tabs.getCurrent();
     } catch (e) {
       //Probably running in a dev environment with vite
-      
+
       return null;
     }
   }

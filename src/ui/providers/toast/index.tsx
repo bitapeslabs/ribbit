@@ -6,16 +6,26 @@ import React, {
   useCallback,
 } from "react";
 
-import { Box } from "@/ui/components/base";
+import { Box, Text } from "@/ui/components/base";
 import styles from "./styles.module.css";
+
+import {
+  IconRosetteDiscountCheckFilled,
+  IconAlertTriangleFilled,
+  IconAlertCircleFilled,
+  IconInfoCircleFilled,
+} from "@tabler/icons-react";
 
 import clsx from "clsx";
 
-const MAX_TOASTS = 5;
+const MAX_TOASTS = 1;
+
+type ToastTypes = "success" | "error" | "warning" | "info";
 
 // Toast type definition
 interface Toast {
   message: string;
+  type?: ToastTypes;
   isVisible: boolean;
   id: string;
 }
@@ -24,7 +34,7 @@ type Toasts = { [key: string]: Toast };
 
 // Context types
 interface ToastContextType {
-  createToast: (message: string) => void;
+  createToast: (message: string, type?: ToastTypes) => void;
   deleteToast: (id: string) => void;
   toasts: Toasts;
 }
@@ -38,13 +48,13 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({
   const [toasts, setToasts] = useState<Toasts>({});
 
   const createToast = useCallback(
-    (message: string) => {
+    (message: string, type?: ToastTypes) => {
       if (Object.values(toasts).length + 1 > MAX_TOASTS) return;
 
       const id = Math.random().toString(36).substring(7); // Generate a random ID
       setToasts((prev) => ({
         ...prev,
-        [id]: { message, id, isVisible: false },
+        [id]: { message, id, isVisible: false, type: type ?? "info" },
       }));
       // Automatically hide the toast after 3 seconds
 
@@ -86,7 +96,18 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({
               toast.isVisible && styles.toast_visible
             )}
           >
-            {toast.message}
+            <Box
+              className={clsx(
+                styles.toast_icon,
+                styles[`toast_icon_${toast.type}`]
+              )}
+            >
+              {toast.type === "success" && <IconRosetteDiscountCheckFilled />}
+              {toast.type === "error" && <IconAlertCircleFilled />}
+              {toast.type === "warning" && <IconAlertTriangleFilled />}
+              {toast.type === "info" && <IconInfoCircleFilled />}
+            </Box>
+            <Text size="sm">{toast.message}</Text>
           </Box>
         ))}
       </Box>

@@ -5,7 +5,6 @@ import { IS_WINDOWS } from "@/shared/constants";
 import {
   browserWindowsCreate,
   browserWindowsGetCurrent,
-  browserWindowsOnFocusChanged,
   browserWindowsOnRemoved,
   browserWindowsRemove,
   browserWindowsUpdate,
@@ -15,11 +14,6 @@ const event = new EventEmitter();
 
 // Event type for window focus and removal changes
 export type WindowFocusChangeCallback = (winId: number) => void;
-
-// Subscribe to focus change event
-browserWindowsOnFocusChanged((winId: number) => {
-  event.emit("windowFocusChange", winId);
-});
 
 // Subscribe to window removed event
 browserWindowsOnRemoved((winId: number) => {

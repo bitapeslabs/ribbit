@@ -36,5 +36,8 @@ export default tseslint.config(
         },
       },
     ],
+    globals: {
+      Buffer: true,
+    },
   }
 );
