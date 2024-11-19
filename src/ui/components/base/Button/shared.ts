@@ -11,7 +11,6 @@ type LocalButtonProps = {
     | "secondary" //filled white
     | "outline"; //outlined
 
-  buttonClassName?: string; //This is the class name for the actual button, "className" is passed to the container
   fitContent?: boolean; //If true, the button will fit the content rather than being full width. Useful shorthand
 };
 export type ButtonProps = LocalButtonProps &

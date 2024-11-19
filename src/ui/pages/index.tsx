@@ -11,7 +11,11 @@ const PageRoutes: Array<{ path: string; component: React.FC<{}> }> = [
   },
   {
     path: "/create-wallet",
-    component: Pages.CreateWallet,
+    component: Pages.CreateWalletNewSeedphrase,
+  },
+  {
+    path: "/import-wallet",
+    component: Pages.CreateWalletImportSeedphrase,
   },
 ];
 

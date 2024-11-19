@@ -24,7 +24,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <Box
         {...props.containerProps}
-        className={clsx(useButtonStyles(props), props.className)}
+        className={clsx(
+          useButtonStyles(props),
+          props.containerProps?.className
+        )}
         ref={outerContainerRef}
       >
         {rect && !props.isDisabled && (
@@ -37,7 +40,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         <ReactAriaButton
           {...props}
           className={clsx(
-            props.buttonClassName,
+            props.className,
             props.isDisabled && styles.disabled,
             styles.container
           )}

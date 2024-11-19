@@ -1,0 +1,103 @@
+.tooltip_container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tooltip_content {
+  display: block;
+  text-wrap: nowrap;
+}
+
+.tooltip {
+  --tooltip-gap: var(--margin-small);
+  --tooltip-bg: var(--foreground);
+  --tooltip-border-radius: calc(var(--round-box) / 2);
+  --tooltip-border-color: var(--primary-low-opacity);
+  background-color: var(--tooltip-bg);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--tooltip-border-color);
+  border-radius: var(--tooltip-border-radius);
+  position: absolute;
+  opacity: 0;
+  display: flex;
+  flex-direction: row;
+  gap: var(--margin-small);
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  padding: calc(var(--padding-small) / 2);
+  padding-left: var(--padding-small);
+  padding-right: var(--padding-small);
+  width: fit-content;
+}
+
+.tooltip_arrow {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-width: 0px;
+  border-style: solid;
+  border-color: var(--tooltip-border-color);
+  background-color: var(--tooltip-bg);
+  z-index: -1;
+}
+
+.tooltip_top {
+  top: 0;
+  transform: translateY(calc(100% + var(--tooltip-gap)));
+
+  & .tooltip_arrow {
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    border-left-width: 1px;
+    border-bottom-width: 1px;
+  }
+}
+
+.tooltip_bottom {
+  bottom: 0;
+  transform: translateY(calc(-100% - var(--tooltip-gap)));
+
+  & .tooltip_arrow {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    border-right-width: 1px;
+    border-top-width: 1px;
+  }
+}
+
+.tooltip_left {
+  left: 0;
+  transform: translateX(calc(-100% - var(--tooltip-gap)));
+
+  & .tooltip_arrow {
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+  }
+}
+
+.tooltip_right {
+  right: 0;
+  transform: translateX(calc(100% + var(--tooltip-gap)));
+
+  & .tooltip_arrow {
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%) translateX(-50%) rotate(45deg);
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+  }
+}
+
+.tooltip_visible {
+  transition: 0.2s;
+  opacity: 1;
+}

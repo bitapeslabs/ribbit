@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  flex-grow: 1;
+  position: relative;
+}
+
+.tab {
+  transition: 0.5s cubic-bezier(0, 0, 0, 1);
+  display: flex;
+  align-items: center;
+}
+
+.active {
+  pointer-events: none !important;
+  background-color: var(--primary-ghost) !important;
+  color: var(--primary) !important;
+}

@@ -6,11 +6,24 @@ import { nodePolyfills } from "vite-plugin-node-polyfills";
 import inject from "@rollup/plugin-inject";
 
 export default defineConfig({
-  plugins: [react(), tsconfigPaths(), nodePolyfills()],
+  plugins: [
+    react(),
+    tsconfigPaths(),
+    nodePolyfills({
+      include: ["buffer"], // Ensures 'buffer' polyfill is included
+      globals: {
+        Buffer: true, // Inject Buffer as a global
+      },
+    }),
+  ],
   build: {
     rollupOptions: {
-      plugins: [inject({ Buffer: ["buffer", "Buffer"] })],
-
+      plugins: [
+        inject({
+          // Ensures Buffer is available as globalThis.Buffer
+          "globalThis.Buffer": ["buffer", "Buffer"],
+        }),
+      ],
       input: {
         main: resolve(__dirname, "index.html"),
         background: resolve(__dirname, "src/background/index.ts"),
@@ -32,6 +45,5 @@ export default defineConfig({
     outDir: "dist",
     assetsDir: "assets",
   },
-
   publicDir: "public",
 });

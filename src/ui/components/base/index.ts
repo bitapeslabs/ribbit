@@ -5,3 +5,6 @@ export * from "./Indicator";
 export * from "./DesignToken";
 export * from "./Input";
 export * from "./Checkbox";
+export * from "./TabSwitch";
+export * from "./Tooltip";
+export * from "./Grid";

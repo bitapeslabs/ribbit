@@ -38,8 +38,11 @@ const WizardNavigator: React.FC<WizardNavigatorProps> = ({
             variant="outline"
             isDisabled={currentStep === 0}
             containerProps={{
-              style: { visibility: currentStep !== 0 ? "visible" : "hidden" },
+              style: {
+                visibility: currentStep !== 0 ? "visible" : "hidden",
+              },
             }}
+            className={styles.backButton}
             fitContent
           >
             <IconArrowBack />
