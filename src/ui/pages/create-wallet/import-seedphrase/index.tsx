@@ -66,7 +66,7 @@ export const CreateWalletImportSeedphrase: React.FC<{}> = () => {
 
   const WizardNavigatorControls = createWizardNavigatorControls(
     handleSubmission,
-    1
+    0
   );
 
   return (
