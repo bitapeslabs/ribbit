@@ -104,7 +104,7 @@ const ViewSeedphrasePage: React.FC<{ seedphrase: string[] }> = ({ seedphrase }) 
 
             <Grid.Container columns={2} rows={6}>
                 {seedphrase.map((word, index) => (
-                    <Grid.Item key={index} index={index}>
+                    <Grid.Item key={index} index={index+1}>
                         <Box className={styles.seedphrase_word}>{word}</Box>
                     </Grid.Item>
                 ))}
