@@ -30,10 +30,33 @@ const ConfirmSeedphrasePage: React.FC<{ seedphrase: string[] }> = ({ seedphrase 
 
     const [wordsForm, setWordsForm] = useState<string[]>(Array.from({ length: TOTAL_WORDS_TO_REMEMBER }, () => ""));
 
+    // Shuffle function using Fisher-Yates algorithm
+    const shuffleArray = (array: number[]): number[] => {
+        const shuffled = [...array];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled;
+    };
+
     //We want to create a new form every time this page is rendered to avoid people from going back and forth to see seedphrase without having written it down
 
     const wordsToRemember = useMemo<WordsToRememberProps>(() => {
-        const wordsToRemember = Array.from({ length: TOTAL_WORDS_TO_REMEMBER }, () => Math.floor(Math.random() * 12)).map((index) => ({
+        // Ensure that TOTAL_WORDS_TO_REMEMBER does not exceed the available indices
+        const total = Math.min(TOTAL_WORDS_TO_REMEMBER, writtenIndicies.length);
+
+        // Create an array of indices [0, 1, 2, ..., 11]
+        const allIndices = writtenIndicies.map((_, index) => index);
+
+        // Shuffle the indices to randomize their order
+        const shuffledIndices = shuffleArray(allIndices);
+
+        // Select the first 'total' indices for uniqueness
+        const selectedIndices = shuffledIndices.slice(0, total);
+
+        // Map the selected indices to the words to remember
+        const wordsToRemember = selectedIndices.map((index) => ({
             writtenIndex: writtenIndicies[index],
             word: seedphrase[index],
         }));
@@ -104,7 +127,7 @@ const ViewSeedphrasePage: React.FC<{ seedphrase: string[] }> = ({ seedphrase }) 
 
             <Grid.Container columns={2} rows={6}>
                 {seedphrase.map((word, index) => (
-                    <Grid.Item key={index} index={index+1}>
+                    <Grid.Item key={index} index={index + 1}>
                         <Box className={styles.seedphrase_word}>{word}</Box>
                     </Grid.Item>
                 ))}
