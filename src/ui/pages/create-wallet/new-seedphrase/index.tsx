@@ -16,6 +16,7 @@ import { generateMnemonic } from "@/shared/lib/btc/wallet";
 import { encrypt } from "@/shared/lib/crypto";
 
 import { storage } from "@/background/webapi";
+import { useNavigate } from "react-router-dom";
 const TOTAL_WORDS_TO_REMEMBER = 3;
 
 type WordsToRememberProps = Array<{
@@ -150,12 +151,23 @@ export const CreateWalletNewSeedphrase: React.FC<{}> = () => {
     let [password, setPassword] = useState<string>("");
 
     const { createToast } = useToast();
+    const navigate = useNavigate();
 
     const handleSubmission = async (): Promise<void> => {
-        const encryptedSeedphrase = await encrypt("yo", { seedphrase });
+        /* @todo: show loading indicator */
+
+        if (!password) {
+            createToast("Password is required", "error");
+            return;
+        }
+
+        const encryptedSeedphrase = await encrypt(password, { seedphrase });
         await storage.set("encrypted_seed", encryptedSeedphrase);
 
         createToast("Wallet created successfully", "success");
+        
+        // Redirect to the wallet dashboard
+        navigate("/wallet");
     };
 
     const WizardNavigatorControls = createWizardNavigatorControls(handleSubmission, 0);
