@@ -6,6 +6,7 @@ import { hex } from "@scure/base";
 import { Protocol } from "@/ui/state/WalletContext";
 import { Signer } from "@scure/btc-signer/transaction";
 import { equalBytes, hash160, isBytes, pubECDSA } from "@scure/btc-signer/utils";
+//import { SelectionStrategy } from "@scure/btc-signer/utxo";
 
 async function broadcastTransaction(signedTx: string): Promise<string> {
     const response = await fetch("https://blockstream.info/api/tx", {

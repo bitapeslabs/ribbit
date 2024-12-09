@@ -1,3 +1,4 @@
+// public\scripts\bitcoinFunctions.js
 import { mnemonicToSeedSync } from 'https://esm.sh/@scure/bip39@1.5.0';
 import { HDKey } from 'https://esm.sh/@scure/bip32@1.6.0';
 import * as btc from 'https://esm.sh/@scure/btc-signer@1.5.0';
@@ -14,7 +15,6 @@ const NETWORK_CONFIG = {
     network: btc.TEST_NETWORK
   }
 };
-
 
 // Utility Functions
 function hexToBytes(hex) {
@@ -67,11 +67,22 @@ export const protocolFunctions = {
 
   /**
    * Retrieve Unspendable UTXOs
+   * For Bitcoin, all UTXOs are spendable. Hence, return an empty array.
+   * @param {string} address - Bitcoin address
+   * @param {string} network - Network identifier
+   * @returns {Promise<Object>} Empty UTXO details
+   */
+  async getUnspendables(address, network) {
+    return { address, network, unspendables: [] };
+  },
+
+  /**
+   * Retrieve All UTXOs for an Address
    * @param {string} address - Bitcoin address
    * @param {string} network - Network identifier
    * @returns {Promise<Object>} UTXO details
    */
-  async getUnspendables(address, network) {
+  async getUtxos(address, network) {
     const baseUrl = getApiBaseUrl(network);
     const utxos = await fetchJson(`${baseUrl}/address/${address}/utxo`);
 
@@ -82,14 +93,14 @@ export const protocolFunctions = {
       return {
         txid: utxo.txid,
         vout: utxo.vout,
-        value: voutData.value,
+        value: voutData.value, // in satoshis
         confirmed: utxo.status.confirmed,
         block_height: utxo.status.block_height || null,
         scriptpubkey: voutData.scriptpubkey
       };
     }));
 
-    return { address, network, unspendables: detailedUtxos };
+    return { address, network, utxos: detailedUtxos };
   },
 
   /**
@@ -104,10 +115,10 @@ export const protocolFunctions = {
     fee,
     network,
     seedphrase,
-    unspendables
+    utxos
   }) {
     // Validate inputs
-    if (!fromAddress || !toAddress || amount == null || fee == null || !network || !seedphrase || !unspendables.length) {
+    if (!fromAddress || !toAddress || amount == null || fee == null || !network || !seedphrase || !utxos.length) {
       throw new Error('Missing or invalid transaction parameters');
     }
 
@@ -135,8 +146,9 @@ export const protocolFunctions = {
     // Initialize transaction
     const tx = new btc.Transaction();
 
-    // Calculate and add inputs
-    const totalInput = unspendables.reduce((total, utxo) => {
+    // Add inputs
+    let totalInput = 0;
+    utxos.forEach(utxo => {
       // Validate UTXO
       if (!utxo.txid || utxo.vout === undefined || !utxo.value || !utxo.scriptpubkey) {
         throw new Error(`Invalid UTXO: ${JSON.stringify(utxo)}`);
@@ -156,33 +168,26 @@ export const protocolFunctions = {
         },
         sighashType: btc.SigHash.ALL,
       });
-      return total + utxo.value;
-    }, 0);
 
-    // Convert amount to satoshis
-    const amountSats = Math.round(amount * 1e8);
-    const totalRequired = amountSats + fee;
+      totalInput += utxo.value;
+    });
 
     // Validate sufficient funds
-    if (totalInput < totalRequired) {
-      throw new Error(`Insufficient funds: ${totalInput} < ${totalRequired}`);
+    if (totalInput < amount + fee) {
+      throw new Error(`Insufficient funds: ${totalInput} < ${amount + fee}`);
     }
 
-    console.log("toAddress", toAddress)
     // Add recipient output
-    tx.addOutputAddress(toAddress, BigInt(amountSats), networkConfig.network);
+    tx.addOutputAddress(toAddress, BigInt(amount), networkConfig.network);
 
     // Add change output if necessary
-    const changeAmount = totalInput - totalRequired;
+    const changeAmount = totalInput - amount - fee;
     if (changeAmount > 0) {
       tx.addOutput({
-        //address: payment.address,
         script: payment.script,
         amount: BigInt(changeAmount),
       });
     }
-
-    console.log(payment.address, payment.script)
 
     // Convert to PSBT
     const psbtBytes = tx.toPSBT();
@@ -192,11 +197,9 @@ export const protocolFunctions = {
       network,
       fromAddress,
       toAddress,
-      amount: amountSats.toString(),
+      amount: amount.toString(),
       fee: fee.toString(),
-      //inputs: unspendables.map(u => ({ txid: u.txid, vout: u.vout, value: u.value })),
-      inputs: unspendables,
-      //outputs: tx.outputs.map(o => ({ script: o.script, value: o.amount })),
+      inputs: utxos,
       outputs: tx.outputs,
       psbtBase64
     };

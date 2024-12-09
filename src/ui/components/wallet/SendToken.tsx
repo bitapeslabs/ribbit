@@ -14,18 +14,30 @@ interface UTXO {
     txid: string;
     vout: number;
     value: number; // in satoshis
-    rawTx: string; // raw transaction hex
+    scriptpubkey: string; // script pub key
 }
 
 const SendToken: React.FC = () => {
     const { selectedProtocol, seedphrase, selectedAccount, selectedNetwork, isUnlocked } = useContext(WalletContext);
-    const [amount, setAmount] = useState<number>(0);
+    const [amount, setAmount] = useState<string>("0");
     const [toAddress, setToAddress] = useState<string>("");
     const { createToast } = useToast();
 
     const handleSend = async () => {
         if (!isUnlocked || !selectedProtocol || !seedphrase || !selectedAccount || !selectedNetwork) {
             createToast("Please unlock your wallet and select a protocol, network, and account.", "error");
+            return;
+        }
+
+        // Validate input fields
+        if (!toAddress) {
+            createToast("Please enter a recipient address.", "error");
+            return;
+        }
+
+        const parsedAmount = parseFloat(amount);
+        if (isNaN(parsedAmount) || parsedAmount <= 0) {
+            createToast("Please enter a valid amount greater than 0.", "error");
             return;
         }
 
@@ -39,38 +51,57 @@ const SendToken: React.FC = () => {
             // Generate public address
             const publicAddress = getBitcoinAddress(hdNode, network);
 
-            // Fetch UTXOs from protocol functions
-            const utxoData = await callProtocolMethod(selectedProtocol.scriptUrl, "getUnspendables", [publicAddress, selectedNetwork.networkId]);
+            // Fetch all UTXOs using getUtxos
+            const utxoData = await callProtocolMethod(selectedProtocol.scriptUrl, "getUtxos", [publicAddress, selectedNetwork.networkId]);
 
-            const utxos: UTXO[] = utxoData.unspendables || [];
-            if (utxos.length === 0) {
+            console.log("utxoData", utxoData);
+
+            const allUtxos: UTXO[] = utxoData.utxos || [];
+            if (allUtxos.length === 0) {
                 createToast("No UTXOs available for this address.", "warning");
                 return;
             }
 
-            console.log("utxos", utxos);
+            // Fetch unspendable UTXOs (empty for Bitcoin)
+            const excludedUtxoData = await callProtocolMethod(selectedProtocol.scriptUrl, "getUnspendables", [publicAddress, selectedNetwork.networkId]);
+            const excludedUtxos: UTXO[] = excludedUtxoData.unspendables || [];
+
+            // Filter out unspendable UTXOs
+            const spendableUtxos = allUtxos.filter(utxo => 
+                !excludedUtxos.some(ex => ex.txid === utxo.txid && ex.vout === utxo.vout)
+            );
+
+            if (spendableUtxos.length === 0) {
+                createToast("No spendable UTXOs available for this address.", "warning");
+                return;
+            }
+
+            console.log("spendableUtxos", spendableUtxos);
 
             // Calculate total available
-            const totalAvailable = utxos.reduce((sum, utxo) => sum + utxo.value, 0);
+            const totalAvailable = spendableUtxos.reduce((sum, utxo) => sum + utxo.value, 0);
 
-            const fee = calculateFee(utxos);
+            // Convert BTC to satoshis
+            const amountSats = Math.round(parsedAmount * 1e8);
 
-            if (totalAvailable < amount + fee) {
+            // Estimate fee
+            const fee = calculateFee(spendableUtxos.length, 2); // Assuming 2 outputs (recipient + change)
+
+            if (totalAvailable < amountSats + fee) {
                 createToast("Insufficient balance for this transaction.", "warning");
                 return;
             }
 
             // Create unsigned transaction
-            // The protocol function expects an object with parameters
             const txData = await callProtocolMethod(selectedProtocol.scriptUrl, "createUnsignedTransaction", [
                 {
                     fromAddress: publicAddress,
                     toAddress: toAddress,
-                    amount: amount,
-                    fee: fee,
+                    amount: amountSats, // in satoshis
+                    fee: fee, // in satoshis
                     network: selectedNetwork.networkId,
                     seedphrase: seedphrase,
-                    unspendables: utxos,
+                    utxos: spendableUtxos,
                 },
             ]);
 
@@ -95,17 +126,18 @@ const SendToken: React.FC = () => {
         }
     };
 
-    const calculateFee = (utxos: UTXO[]): number => {
-        // P2WPKH #inputs * 68 vbytes + #outputs * 31 vbytes + overhead
-        const inputsCount = utxos.length;
-        const outputsCount = 2; // one recipient + possibly one change
-
-        // Rough estimate
-        // Input ~68 vbytes, Output ~31 vbytes + 10 overhead
+    /**
+     * Calculate Transaction Fee
+     * @param {number} inputsCount - Number of inputs
+     * @param {number} outputsCount - Number of outputs
+     * @returns {number} Fee in satoshis
+     */
+    const calculateFee = (inputsCount: number, outputsCount: number): number => {
+        // P2WPKH: ~68 vbytes per input, ~31 vbytes per output, plus 10 vbytes overhead
         const txSize = inputsCount * 68 + outputsCount * 31 + 10;
 
-        // Suppose we fetch a fee rate from an API or hardcode a rate:
-        // Let's assume 5 sat/vbyte for demo
+        // Fetch fee rate from an API or use a hardcoded rate
+        // For demonstration, we'll use 5 sat/vbyte
         const satPerVbyte = 5;
         return txSize * satPerVbyte;
     };
@@ -115,11 +147,24 @@ const SendToken: React.FC = () => {
             <h2>Send {selectedProtocol?.name}</h2>
             <div className="grid w-full max-w-sm items-center gap-1.5">
                 <Label htmlFor="recipient">Send To</Label>
-                <Input type="text" id="recipient" placeholder="Recipient Address" value={toAddress} onChange={(e) => setToAddress(e.target.value)} />
+                <Input 
+                    type="text" 
+                    id="recipient" 
+                    placeholder="Recipient Address" 
+                    value={toAddress} 
+                    onChange={(e) => setToAddress(e.target.value)} 
+                />
             </div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
-                <Label htmlFor="tokenAmount">Amount to send (satoshis)</Label>
-                <Input type="text" id="tokenAmount" placeholder="Amount" value={amount} onChange={(e) => setAmount(Number(e.target.value))} />
+                <Label htmlFor="tokenAmount">Amount to send (BTC)</Label>
+                <Input 
+                    type="number" 
+                    id="tokenAmount" 
+                    placeholder="Amount in BTC" 
+                    value={amount} 
+                    onChange={(e) => setAmount(e.target.value)} 
+                    step="0.00000001" // Allow up to 8 decimal places
+                />
             </div>
             <Button onClick={handleSend}>Send</Button>
         </div>
