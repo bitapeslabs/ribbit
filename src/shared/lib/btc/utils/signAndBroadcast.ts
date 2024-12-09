@@ -36,9 +36,8 @@ export async function signAndBroadcast(psbtBase64: string, seedphrase: string[],
         const derivedKey = hdNode.derive(derivationPath);
         if (!derivedKey.privateKey) throw new Error("Failed to derive private key.");
 
-        //const privateKey = derivedKey.privateKey;
         const privateKey = derivedKey.privateKey;
-        const publicKey = derivedKey.publicKey;
+        //const publicKey = derivedKey.publicKey;
 
         // Debug logging
         console.log("Number of inputs:", tx.inputsLength);

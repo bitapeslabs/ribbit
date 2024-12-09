@@ -125,7 +125,7 @@ export const protocolFunctions = {
     }
 
     // Create payment method
-    const payment = btc.p2wpkh(derivedKey.private, networkConfig.network);
+    const payment = btc.p2wpkh(derivedKey.publicKey, networkConfig.network);
 
     // Validate derived address
     if (payment.address !== fromAddress) {
