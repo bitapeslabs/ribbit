@@ -44,8 +44,9 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
 
       //Indicator takes space inside the component, we want to allocate some space for it and adjust the width of the input accordingly
       ...(indicator && {
-        width: `calc(100% - ${indicatorPadding}px - var(--padding-small))`,
+        //width: `calc(100% - ${indicatorPadding}px - var(--padding-small))`,
         paddingRight: `${indicatorPadding}px`,
+        width: "100%",
       }),
     };
 

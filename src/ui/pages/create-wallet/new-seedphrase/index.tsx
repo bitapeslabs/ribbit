@@ -101,7 +101,7 @@ const ConfirmSeedphrasePage: React.FC<{ seedphrase: string[] }> = ({ seedphrase 
                 />
             ))}
 
-            <Button variant="primary" type="submit" isDisabled={allWordsMatch}>
+            <Button variant="primary" type="submit" isDisabled={!allWordsMatch}>
                 Continue
             </Button>
         </Form>

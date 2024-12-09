@@ -1,0 +1,18 @@
+{
+    "name": "Bitcoin",
+    "logo": "https://bitcoin.org/img/icons/opengraph.png",
+    "bip44": 0,
+    "scriptUrl": "http://localhost:5173/scripts/bitcoinFunctions.js",
+    "networks": [
+      {
+        "name": "Mainnet",
+        "networkId": "mainnet",
+        "bip44": 0
+      },
+      {
+        "name": "Testnet",
+        "networkId": "testnet",
+        "bip44": 1
+      }
+    ]
+  }

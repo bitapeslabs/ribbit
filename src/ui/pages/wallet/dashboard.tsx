@@ -3,16 +3,19 @@ import PageContainer from "@/ui/components/shared/PageContainer";
 import { useToast } from "@/ui/providers/toast";
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "./styles.module.css";
 import { WalletContext } from "@/ui/state/WalletContext";
 import useRequireWallet from "@/ui/hooks/useRequireWallet";
+import DisplayTokens from "@/ui/components/wallet/DisplayTokens";
+import SendReceiveTabs from "@/ui/components/wallet/SendReceiveTabs";
+import ProtocolManager from "@/ui/components/wallet/ProtocolManager";
+import AccountManager from "@/ui/components/wallet/AccountManager";
+import { Button } from "@/components/ui/button";
 
 export const WalletDashboard: React.FC = () => {
     const { seedphrase, lockWallet, isLoading } = useContext(WalletContext);
     const navigate = useNavigate();
     const { createToast } = useToast();
 
-    // Invoke the custom hook to protect this component
     useRequireWallet();
 
     const handleLock = async () => {
@@ -27,13 +30,13 @@ export const WalletDashboard: React.FC = () => {
 
     return (
         <PageContainer hasGradient hasPadding hasBackground>
-            <Box className={styles.container}>
-                <h1>Your Wallet Dashboard</h1>
-                {/* Display wallet information here */}
-                <p>Your seed phrase is securely stored.</p>
-                {/* Add more wallet functionalities as needed */}
-                <button onClick={handleLock}>Lock Wallet</button>
-            </Box>
+            <div className="relative min-w-[357px] flex flex-col gap-2">
+                <AccountManager />
+                <DisplayTokens />
+                <ProtocolManager />
+                <SendReceiveTabs />
+                <Button variant={"link"} onClick={handleLock}>Lock Wallet</Button>
+            </div>
         </PageContainer>
     );
 };

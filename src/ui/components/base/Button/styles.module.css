@@ -43,7 +43,7 @@
   opacity: 0.2;
   background: radial-gradient(
     circle closest-side,
-    var(--primary),
+    var(--btnPrimary),
     rgba(255, 255, 0, 0)
   );
 }
@@ -79,7 +79,7 @@
 }
 
 .primary {
-  background-color: var(--primary);
+  background-color: var(--btnPrimary);
 }
 
 .secondary {

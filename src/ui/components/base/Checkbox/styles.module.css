@@ -1,6 +1,6 @@
 .container {
-  --selected-color: var(--primary);
-  --selected-color-pressed: var(--primary);
+  --selected-color: var(--btnPrimary);
+  --selected-color-pressed: var(--btnPrimary);
   --checkmark-color: var(--primary-text-color);
 
   display: flex;
