@@ -17,5 +17,5 @@
 .active {
   pointer-events: none !important;
   background-color: var(--primary-ghost) !important;
-  color: var(--primary) !important;
+  color: var(--btnPrimary) !important;
 }

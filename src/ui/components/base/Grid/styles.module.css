@@ -20,11 +20,13 @@
   font-weight: 400;
   font-size: var(--text-size-extra-small);
   color: var(--outline-text-color);
-  padding: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
   gap: var(--margin-small);
   border-radius: var(--round-box);
   border: 1px solid var(--divider-color);
   background-color: transparent;
+  width: 75%;
 }
 
 .no_outline {

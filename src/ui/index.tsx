@@ -8,11 +8,14 @@ import Providers from "@/ui/providers";
 import { Router } from "@/ui/pages";
 
 import "@/ui/index.css";
+import { WalletProvider } from "./state/WalletContext";
 
 createRoot(document.getElementById("root")!).render(
-  <Providers>
-    <StrictMode>
-      <Router />
-    </StrictMode>
-  </Providers>
+    <Providers>
+        <StrictMode>
+            <WalletProvider>
+                <Router />
+            </WalletProvider>
+        </StrictMode>
+    </Providers>
 );

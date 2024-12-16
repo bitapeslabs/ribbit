@@ -23,7 +23,9 @@
     /* Alias Configuration */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": [
+        "./src/*"
+      ]
     }
   },
   "include": ["src"]

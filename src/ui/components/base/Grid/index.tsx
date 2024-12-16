@@ -22,7 +22,7 @@ const Container: React.FC<GridProps> = ({
       <Box
         className={clsx(styles.grid_container, props.className)}
         style={{
-          gridTemplateColumns: `repeat(${columns}, 1fr)`,
+          gridTemplateColumns: `repeat(${columns}, 50%)`,
           gridTemplateRows: `repeat(${rows}, 1fr)`,
         }}
         {...props}
